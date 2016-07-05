@@ -39,7 +39,7 @@ bool intHashTable::remove(int key)
 	int idx;
 	idx = keyOf(key);
 	if (buffer[idx] != nullptr) {
-		delete buffer[idx]->Value;
+		//delete buffer[idx]->Value;
 		delete buffer[idx];
 		buffer[idx] = nullptr;
 		--count;
