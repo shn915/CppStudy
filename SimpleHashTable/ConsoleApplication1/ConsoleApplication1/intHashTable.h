@@ -1,4 +1,5 @@
 #pragma once
+#include <cstring>
 #include "hashCommon.h"
 
 class intHashTable
@@ -16,5 +17,6 @@ public:
 	bool add(int key, void *Node);
 	bool remove(int key);
 	void *find(int key);
+	void clear();
 };
 
