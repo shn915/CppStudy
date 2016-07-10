@@ -32,14 +32,13 @@ hashNode * intHashTable::find(int key)
 	}
 	return nullptr;
 
-	return nullptr;
 }
 
 intHashTable::intHashTable(int length)
 {
 	this->length = length;
 	buffer = new hashNode*[length];
-	//init buffer point null
+	//init buffer pointer null
 	memset(buffer, 0, sizeof(hashNode*) * length);
 	count = 0;
 }
@@ -90,15 +89,34 @@ bool intHashTable::add(int key, void * Node)
 
 bool intHashTable::remove(int key)
 {
-	int idx;
-	idx = keyOf(key);
-	if (buffer[idx] != nullptr) 
+	int idx, beginIdx;
+	beginIdx = keyOf(key);
+	idx = beginIdx;
+	while (buffer[idx] != nullptr)
 	{
-		//delete buffer[idx]->Value;
-		delete buffer[idx];
-		buffer[idx] = nullptr;
-		--count;
-		return true;
+		if (buffer[idx]->key == key)
+		{
+			delete buffer[idx];
+			buffer[idx] = nullptr;
+			--count;
+			return true;
+		}
+		else
+		{
+			++idx;
+
+			if (idx == length)
+			{
+				//circulation buffer
+				idx = 0;
+			}
+
+			if (idx == beginIdx)
+			{
+				//run to begin, exit
+				return false;
+			}
+		}
 	}
 	return false;
 }

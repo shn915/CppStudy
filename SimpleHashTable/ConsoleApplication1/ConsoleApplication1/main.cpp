@@ -22,10 +22,12 @@ int main() {
 	int I;
 	int *P;
 	for (I = 0; I <= 2; ++I) {
-		P = (int *)testHT.find(I + 1);
+		P = (int *)testHT.get(I + 1);
 		std::cout << *P << std::endl;
 		testHT.remove(I + 1);
 		delete P;
 	}
+
+	std::getchar();
 
 }
