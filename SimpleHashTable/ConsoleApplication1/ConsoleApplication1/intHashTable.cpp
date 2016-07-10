@@ -9,6 +9,32 @@ int intHashTable::keyOf(int key)
 	return key % length;
 }
 
+hashNode * intHashTable::find(int key)
+{
+	int idx, beginIdx;
+	beginIdx = keyOf(key);
+	idx = beginIdx;
+	while (buffer[idx] != nullptr) {
+		//key equal, return item
+		if (buffer[idx]->key = key) {
+			return buffer[idx];
+		} else {
+			++idx;
+			//circulation
+			if (idx == length) {
+				idx = 0;
+			}
+
+			//run to begin, exit
+			if (idx == beginIdx)
+				break;
+		}
+	}
+	return nullptr;
+
+	return nullptr;
+}
+
 intHashTable::intHashTable(int length)
 {
 	this->length = length;
@@ -77,33 +103,18 @@ bool intHashTable::remove(int key)
 	return false;
 }
 
-void *intHashTable::find(int key)
+void *intHashTable::get(int key)
 {
-	int idx, beginIdx;
-	beginIdx = keyOf(key);
-	idx = beginIdx;
-	while (buffer[idx] != nullptr) 
+	hashNode *node;
+	node = find(key);
+	if (node != nullptr)
 	{
-		//key equal, return item
-		if (buffer[idx]->key = key) 
-		{
-			return buffer[idx]->Value;
-		} 
-		else 
-		{
-			++idx;
-			//circulation
-			if (idx == length) 
-			{
-				idx = 0;
-			}
-
-			//run to begin, exit
-			if (idx == beginIdx)
-				break;
-		}
+		return node->Value;
+	} 
+	else 
+	{
+		return nullptr;
 	}
-	return nullptr;
 }
 
 void intHashTable::clear()
@@ -116,7 +127,20 @@ void intHashTable::clear()
 		if (node != nullptr) 
 		{
 			delete node;
+			buffer[i] = nullptr;
 		}
 	}
 	count = 0;
+}
+
+bool intHashTable::modify(int key, void * Node)
+{
+	hashNode *P;
+	P = find(key);
+	if (P != nullptr)
+	{
+		P->Value = Node;
+		return true;
+	}
+	return false;
 }
